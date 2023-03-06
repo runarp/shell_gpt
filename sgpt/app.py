@@ -27,6 +27,8 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from sgpt import ChatGPT
 from sgpt import make_prompt
 
+DEFAULT_MODEL = "gpt-3.5-turbo"
+CODE_MODEL = "code-davinci-002"
 DATA_FOLDER = os.path.expanduser("~/.config")
 KEY_FILE = Path(DATA_FOLDER) / "shell-gpt" / "api_key.txt"
 CURRENT_SHELL = "PowerShell" if platform.system() == "Windows" else "Bash"
@@ -101,6 +103,7 @@ def get_completion(
     top_p: float,
     caching: bool,
     chat: str,
+    code: bool,
 ) -> str:
     """
     Generates completions for a given prompt using the OpenAI API.
@@ -114,7 +117,10 @@ def get_completion(
     :return: GPT-3.5 generated completion.
     """
     chat_gpt = ChatGPT(api_key)
-    model = "gpt-3.5-turbo"
+    if code:
+        model = DEFAULT_CODE_MODEL
+    else:
+        model = DEFAULT_MODEL
     if not chat:
         return chat_gpt.get_completion(prompt, model, temperature, top_p, caching)
     return chat_gpt.get_chat_completion(
@@ -204,7 +210,8 @@ def main(
 
     api_key = get_api_key()
     response_text = get_completion(
-        prompt, api_key, temperature, top_probability, cache, chat, spinner=spinner
+        prompt, api_key, temperature, top_probability, cache, chat, code,
+        spinner=spinner
     )
 
     typer_writer(response_text, code, shell, animation)
