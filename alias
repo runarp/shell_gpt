@@ -1,0 +1,10 @@
+#! /bin/bash
+
+export SGPT_HOME="$HOME/Opp/shell_gpt"
+cd $SGPT_HOME
+export SGPT_PYTHON=`pipenv --py`
+SGPT="$SGPT_PYTHON $SGPT_HOME/sgpt.py --no-animation"
+
+alias ask="$SGPT"
+alias shell="$SGPT --shell --execute "
+alias code="$SGPT --code | vim -"
