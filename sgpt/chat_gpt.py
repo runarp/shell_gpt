@@ -6,10 +6,6 @@ from tempfile import gettempdir
 from typing import List, Dict, Callable
 
 
-DEFAULT_MODEL = "gpt-3.5-turbo"
-CODE_MODEL = "code-davinci-002"
-
-
 class Cache:
     """
     Decorator class that adds caching functionality to a function.
@@ -158,7 +154,7 @@ class ChatGPT:
     def __request(
         self,
         messages: List,
-        model: str = DEFAULT_MODEL,
+        model: str = "gpt-3.5-turbo",
         temperature: float = 1,
         top_probability: float = 1,
     ) -> Dict:
@@ -186,7 +182,7 @@ class ChatGPT:
     def get_completion(
         self,
         message: str,
-        model: str = DEFAULT_MODEL,
+        model: str = "gpt-3.5-turbo",
         temperature: float = 1,
         top_probability: float = 1,
         caching: bool = True,
@@ -211,7 +207,7 @@ class ChatGPT:
     def get_chat_completion(
         self,
         messages: List[Dict],
-        model: str = DEFAULT_MODEL,
+        model: str = "gpt-3.5-turbo",
         temperature: float = 1,
         top_probability: float = 1
     ) -> str:
