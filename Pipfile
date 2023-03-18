@@ -8,6 +8,7 @@ typer = "~=0.7.0"
 requests = "~=2.28.2"
 rich = "==13.3.1"
 shell-gpt = {path = "."}
+toml = "*"
 
 [scripts]
 sgpt = "python3 sgpt.py"
